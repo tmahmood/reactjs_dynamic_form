@@ -53,8 +53,6 @@ class InputField extends React.Component<any, any> {
         console.log(error, info);
     }
 
-
-
     componentWillReceiveProps(nextProps: any) {
         if(!nextProps.source) {
             if(nextProps.value != this.props.value) {
@@ -128,19 +126,19 @@ class InputField extends React.Component<any, any> {
                                    {...inputProps}
                                    {...valid} />
         }
-
-        return <React.Fragment>
-                <Col md={4} className="formLabel" xs={12}>
-                    <Label for={props.field}>{props.caption}</Label>
-                </Col>
-                <Col md={8} xs={12}>
-                        {field}
-                        {props.feedback || 
-                            <FormFeedback>{props.feedback}</FormFeedback>}
-                        {props.hintText || 
-                            <FormText>{props.hintText}</FormText>}
-               </Col>
-               </React.Fragment>
+        return (
+        <React.Fragment>
+            <Col md={4} className="formLabel" xs={12}>
+                <Label for={props.field}>{props.caption}</Label>
+            </Col>
+            <Col md={8} xs={12}>
+                    {field}
+                    {props.feedback || 
+                        <FormFeedback>{props.feedback}</FormFeedback>}
+                    {props.hintText || 
+                        <FormText>{props.hintText}</FormText>}
+           </Col>
+       </React.Fragment>)
     }
 }
 
@@ -154,9 +152,10 @@ class FormFieldGroup extends React.Component<any, any> {
         if (details.view) {
             return <Row key={"key_ffg_d" + details.field} >{details.view}</Row>;
         } else {
-            return <Row key={"key_ffg_d" + details.field} >
+            return (
+            <Row key={"key_ffg_d" + details.field} >
                     <InputField {...details} />
-                   </Row>
+           </Row>)
         }
     }
 }
@@ -182,9 +181,10 @@ class FormFieldGroups extends React.Component<any, any> {
         const props = this.props;
         return props.size.map((size: number, index:number) => { 
             var details:any = this.mergeDefaults(props, index);
-            return <Col md={size} sm={12} xs={12} key={'form_field_groups_' + index} >
+            return (
+            <Col md={size} sm={12} xs={12} key={'form_field_groups_' + index} >
                 <FormFieldGroup details={props.fields[index]} />
-            </Col>
+            </Col>)
         })
     }
 }
