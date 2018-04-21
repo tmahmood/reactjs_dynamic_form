@@ -1,9 +1,34 @@
 import * as React from 'react';
-import {Col, FormGroup, Label, Input, FormText, FormFeedback} from 'reactstrap';
+import {Card, CardBody, CardHeader, FormFeedback, FormText} from 'reactstrap';
+import {Col, Row, FormGroup, Label, Input, Table} from 'reactstrap';
 import Select from 'react-select';
 import {Creatable as Creatable} from 'react-select';
 import {Async as Async} from 'react-select';
 import {AsyncCreatable as AsyncCreatable} from 'react-select';
+
+
+class FormFields extends React.Component<any, any> {
+    constructor(props: any) {
+        super(props);
+    }
+
+    render() {
+        const props = this.props;
+        const fields = this.props.fields;
+        return fields.layout.map((field:any, index:number) => {
+            if(field.fields === 'br') {
+                return <br key={"br_" + index} />
+            } else if(field.fields === 'hr') {
+                return <hr key={"hr_" + index}  />
+            } else {
+                return <Row key={'ffs_' + index } >
+                    <FormFieldGroups {...field} 
+                            defaults={fields.defaults} />
+                </Row>
+            }
+        });
+    }
+}
 
 
 class InputField extends React.Component<any, any> {
@@ -119,6 +144,49 @@ class InputField extends React.Component<any, any> {
     }
 }
 
-export default InputField;
+class FormFieldGroup extends React.Component<any, any> {
+    constructor(props: any) {
+        super(props);
+    }
 
+    render() {
+        var details: any = this.props.details;
+        if (details.view) {
+            return <Row key={"key_ffg_d" + details.field} >{details.view}</Row>;
+        } else {
+            return <Row key={"key_ffg_d" + details.field} >
+                    <InputField {...details} />
+                   </Row>
+        }
+    }
+}
 
+class FormFieldGroups extends React.Component<any, any> {
+
+    constructor(props: any) {
+        super(props);
+    }
+
+    mergeDefaults(props:any, index:number) {
+        var details:any = props.fields[index];
+        for(var k in props.defaults) {
+            if (!(k in details)) {
+                details[k] = props.defaults[k];
+            }
+        }
+        return details;
+    }
+
+    render() {
+        // sizes and fields
+        const props = this.props;
+        return props.size.map((size: number, index:number) => { 
+            var details:any = this.mergeDefaults(props, index);
+            return <Col md={size} sm={12} xs={12} key={'form_field_groups_' + index} >
+                <FormFieldGroup details={props.fields[index]} />
+            </Col>
+        })
+    }
+}
+
+export default FormFields;
