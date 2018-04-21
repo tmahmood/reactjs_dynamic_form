@@ -24,16 +24,15 @@
   },
   "homepage": "https://github.com/tmahmood/reactjs_dynamic_form#readme",
   "devDependencies": {
-    "typescript": "^2.8.3"
-  },
-  "dependencies": {
     "@types/react": "^16.3.12",
     "@types/react-dom": "^16.0.5",
     "@types/react-select": "^1.2.6",
-    "@types/reactstrap": "^5.0.21",
+    "@types/reactstrap": "^5.0.22",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-select": "^1.2.1",
-    "reactstrap": "^5.0.0"
-  }
+    "reactstrap": "^5.0.0",
+    "typescript": "^2.8.3"
+  },
+  "dependencies": {}
 }
