@@ -1,6 +1,6 @@
 {
   "name": "reactjs_dynamic_form",
-  "version": "0.0.1",
+  "version": "0.0.8",
   "description": "A dynamic form generator for reactjs ",
   "main": "./dist/index.js",
   "scripts": {

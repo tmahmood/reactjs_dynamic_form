@@ -34,10 +34,15 @@ class FormFields extends React.Component<any, any> {
 class InputField extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+        var headers = {};
+        if('headers' in props) {
+            headers = Object.assign({}, headers, props.headers);
+        }
         this.state = {
             options: [],
             value: this.props.value,
             doUpdate: false,
+            headers: headers
         };
         this.onSelectChange = this.onSelectChange.bind(this);
     }
@@ -67,22 +72,26 @@ class InputField extends React.Component<any, any> {
             return;
         }
         var src:string = '';
+        var listingFunc:any = null;
         if(typeof nextProps.source === 'function') {
             src = nextProps.source();
             if(src == null) {
                 return;
             }
+            listingFunc = nextProps.listing;
         } else {
             src = nextProps.source;
         }
-        fetch(src, { credentials: 'include' })
-          .then(response => response.json())
+        fetch(src, this.state.headers )
+          .then(response => {
+              return response.json();
+          })
           .then(json => { 
-              var ky = Object.keys(json._embedded)[0];
-              var items:any = json._embedded[ky].map((item: any) => {
+              var itemsJson:any = listingFunc(json);
+              var items:any = itemsJson.map((item: any) => {
                   return nextProps.optionFunc(item);
               });
-              this.setState({ items: items, original: json._embedded[ky] }) 
+              this.setState({ items: items, original: itemsJson }) 
           });
     }
 
