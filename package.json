@@ -1,9 +1,9 @@
 {
   "name": "reactjs_dynamic_form",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "A dynamic form generator for reactjs ",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/formfields.js",
+  "types": "./dist/formfields.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
