@@ -5,8 +5,9 @@
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
-        "target": "es2015",
+        "target": "es5",
         "jsx": "react",
+        "lib": ["es5", "es6", "dom"],
         "declaration": true
     },
     "include": [
