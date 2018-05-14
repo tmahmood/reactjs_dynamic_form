@@ -7,7 +7,7 @@ import {Async as Async} from 'react-select';
 import {AsyncCreatable as AsyncCreatable} from 'react-select';
 
 
-export class FormFields extends React.Component<any, any> {
+export default class FormFields extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -119,7 +119,6 @@ export class InputField extends React.Component<any, any> {
         var selectProps = {
                     clearable: props.clearable || false,
                     onChange: parent.onSelectChange,
-                    value: this.state.value,
                     options: props.source ? this.state.items : props.options,
                     loadOptions: props.loadOptions
             };
