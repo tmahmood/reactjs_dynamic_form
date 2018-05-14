@@ -11,7 +11,7 @@ export default class FormFields extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
-            value: props.value || null
+            value: props.value || ''
         }
     }
 
@@ -43,7 +43,7 @@ export class InputField extends React.Component<any, any> {
         }
         this.state = {
             options: [],
-            value: this.props.value,
+            value: this.props.value || '',
             doUpdate: false,
             headers: headers
         };
@@ -52,9 +52,7 @@ export class InputField extends React.Component<any, any> {
 
     onSelectChange(sopt:any) {
         this.props.update(this.props.field, sopt.value, sopt);
-        this.setState({
-            value: sopt.value
-        });
+        this.setState({ value: sopt });
     }
 
     componentDidCatch(error:any, info:any) {
@@ -65,6 +63,8 @@ export class InputField extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps: any) {
+        // are we using select or normal input box? if source is null/undefined then
+        // we are using text fields.
         if(!nextProps.source) {
             if(nextProps.value != this.props.value) {
                 this.setState({
@@ -74,11 +74,29 @@ export class InputField extends React.Component<any, any> {
             }
             return;
         }
+        // check if select field requires updating. We keep track of fields that are
+        // being changed in parent component. if we find relevent component has been
+        // changed we update this Component too.
+        // changeCondition function should be like the follwoing.
+        // changeCondition: () => { 
+        //   return ['all', null, 'otherFieldName'].indexOf(parent.state.whatChanged) >= 0;
+        // }
         if(typeof this.props.changeCondition === 'function' && !this.props.changeCondition()) {
             return;
         }
         var src:string = '';
         var listingFunc:any = null;
+        var parent = this;
+        // is our source a function or url? if we require to change the url a little
+        // we can make it a function that will return the string after making the
+        // change. ie;
+        //
+        // source: () => { 
+        //     if(parent.state.current.userIsAdmin === false) {
+        //         return null;
+        //     }
+        //     return parent.links.userRoles + parent.state.currentUserId; 
+        // },
         if(typeof nextProps.source === 'function') {
             src = nextProps.source();
             if(src == null) {
@@ -87,6 +105,20 @@ export class InputField extends React.Component<any, any> {
         } else {
             src = nextProps.source;
         }
+        // The data we receive from source should be JSON, listing will allow to get
+        // the exact data collection from the JSON, 
+        // ie: Spring REST data which contains the data in 
+        // { 
+        //      __embedded: {
+        //          'roles': [
+        //              {}, {}
+        //          ]
+        //      }
+        // }
+        // listing: (json:any) => {
+        //     var ky = Object.keys(json._embedded)[0];
+        //     return json._embedded[ky];
+        // },
         listingFunc = nextProps.listing;
         fetch(src, this.state.headers )
           .then(response => {
@@ -95,7 +127,18 @@ export class InputField extends React.Component<any, any> {
           .then(json => { 
               var itemsJson:any = listingFunc(json);
               var items:any = itemsJson.map((item: any) => {
-                  return nextProps.optionFunc(item);
+                  // we need to convert the data to match with react-select format
+                  // so we use optionFunc to convert our data to match
+                  // react-select compatible object 
+                  // ie: 
+                  // { role: "SOME_ROLE", id: 323 }
+                  // to
+                  // { label: "SOME_ROLE", value: 323 }
+                  var opt = nextProps.optionFunc(item);
+                  if(opt.value == parent.props.value) {
+                      parent.setState({ value: opt });
+                  }
+                  return opt;
               });
               this.setState({ items: items, original: itemsJson }) 
           });
@@ -113,8 +156,8 @@ export class InputField extends React.Component<any, any> {
             name: props.field, 
             required: props.required ? true : false,
             id: props.field,
-            value: this.state.value,
-            key: 'input_key_' + props.field
+            key: 'input_key_' + props.field,
+            value: this.state.value
         };
         var selectProps = {
                     clearable: props.clearable || false,
