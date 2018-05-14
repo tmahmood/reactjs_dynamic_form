@@ -10,6 +10,9 @@ import {AsyncCreatable as AsyncCreatable} from 'react-select';
 class FormFields extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+        this.state = {
+            value: props.value || null
+        }
     }
 
     render() {
@@ -115,7 +118,7 @@ class InputField extends React.Component<any, any> {
         var selectProps = {
                     clearable: props.clearable || false,
                     onChange: parent.onSelectChange,
-                    value: props.value || undefined,
+                    value: this.state.value || undefined,
                     options: props.source ? this.state.items : props.options,
                     loadOptions: props.loadOptions
             };
@@ -134,7 +137,7 @@ class InputField extends React.Component<any, any> {
             }
             var field:any = <Input type={props.fieldType}
                                    onChange={props.update}
-                                   value={props.value || undefined}
+                                   value={this.state.value || undefined}
                                    {...inputProps}
                                    {...valid} />
         }
