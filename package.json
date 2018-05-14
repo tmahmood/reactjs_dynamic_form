@@ -6,7 +6,7 @@
   "types": "./dist/formfields.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,21 @@
     "typescript",
     "dynamic"
   ],
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "libs/__tests__/^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  },
   "author": "Tarin Mahmood",
   "license": "ISC",
   "bugs": {

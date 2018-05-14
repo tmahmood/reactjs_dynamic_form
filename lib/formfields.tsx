@@ -7,7 +7,7 @@ import {Async as Async} from 'react-select';
 import {AsyncCreatable as AsyncCreatable} from 'react-select';
 
 
-class FormFields extends React.Component<any, any> {
+export class FormFields extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -34,7 +34,7 @@ class FormFields extends React.Component<any, any> {
 }
 
 
-class InputField extends React.Component<any, any> {
+export class InputField extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         var headers = {};
@@ -113,12 +113,13 @@ class InputField extends React.Component<any, any> {
             name: props.field, 
             required: props.required ? true : false,
             id: props.field,
+            value: this.state.value,
             key: 'input_key_' + props.field
         };
         var selectProps = {
                     clearable: props.clearable || false,
                     onChange: parent.onSelectChange,
-                    value: this.state.value || undefined,
+                    value: this.state.value,
                     options: props.source ? this.state.items : props.options,
                     loadOptions: props.loadOptions
             };
@@ -137,7 +138,6 @@ class InputField extends React.Component<any, any> {
             }
             var field:any = <Input type={props.fieldType}
                                    onChange={props.update}
-                                   value={this.state.value || undefined}
                                    {...inputProps}
                                    {...valid} />
         }
@@ -203,5 +203,3 @@ class FormFieldGroups extends React.Component<any, any> {
         })
     }
 }
-
-export default FormFields;
