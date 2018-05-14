@@ -1,6 +1,6 @@
 {
   "name": "reactjs_dynamic_form",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "A dynamic form generator for reactjs ",
   "main": "./dist/formfields.js",
   "types": "./dist/formfields.d.ts",
@@ -40,8 +40,8 @@
   },
   "homepage": "https://github.com/tmahmood/reactjs_dynamic_form#readme",
   "dependencies": {
-    "react-select": "^2.0.0-beta.2",
-    "@types/react-select": "^1.2.6"
+    "@types/react-select": "^1.2.6",
+    "react-select": "^2.0.0-beta.2"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
