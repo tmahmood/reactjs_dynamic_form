@@ -21,7 +21,7 @@ Import
 
 Install other requirements
 
-`yarn add reactstrap@next react react-dom react-select bootstrap`
+`yarn add reactstrap@next react react-dom react-select@next bootstrap`
 
 Add imports
 `import 'bootstrap/dist/css/bootstrap.min.css';`
