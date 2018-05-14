@@ -49,6 +49,9 @@ class InputField extends React.Component<any, any> {
 
     onSelectChange(sopt:any) {
         this.props.update(this.props.field, sopt.value, sopt);
+        this.setState({
+            value: sopt.value
+        });
     }
 
     componentDidCatch(error:any, info:any) {
