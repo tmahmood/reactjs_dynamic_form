@@ -183,19 +183,14 @@ export class InputField extends React.Component<any, any> {
                                    {...inputProps}
                                    {...valid} />
         }
-        return (
-        <React.Fragment>
-            <Col md={4} className="formLabel" xs={12}>
-                <Label for={props.field}>{props.caption}</Label>
-            </Col>
-            <Col md={8} xs={12}>
-                    {field}
-                    {props.feedback || 
-                        <FormFeedback>{props.feedback}</FormFeedback>}
-                    {props.hintText || 
-                        <FormText>{props.hintText}</FormText>}
-           </Col>
-       </React.Fragment>)
+        return <React.Fragment>
+            <Label for={props.field}>{props.caption}</Label>
+                {field}
+                {props.feedback ||
+                    <FormFeedback>{props.feedback}</FormFeedback>}
+                {props.hintText ||
+                    <FormText>{props.hintText}</FormText>}
+       </React.Fragment>
     }
 }
 
@@ -207,12 +202,9 @@ class FormFieldGroup extends React.Component<any, any> {
     render() {
         var details: any = this.props.details;
         if (details.view) {
-            return <Row key={"key_ffg_d" + details.field} >{details.view}</Row>;
+            return details.view;
         } else {
-            return (
-            <Row key={"key_ffg_d" + details.field} >
-                    <InputField {...details} />
-           </Row>)
+            return <InputField {...details} />
         }
     }
 }
