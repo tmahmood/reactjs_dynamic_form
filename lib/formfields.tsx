@@ -194,22 +194,6 @@ export class InputField extends React.Component<any, any> {
     }
 }
 
-class MultilineDetailedView extends React.Component<any, any> {
-    render() {
-        return <Row key={"key_ffg_d" + this.props.details.field}>
-            this.props.details.view
-        </Row>
-    }
-}
-
-class MultilineInputView extends React.Component<any, any> {
-    render() {
-        return <Row key={"key_ffg_d" + this.props.details.field}>
-            <InputField {...this.props.details} />
-        </Row>
-    }
-}
-
 class FormFieldGroup extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
@@ -218,13 +202,9 @@ class FormFieldGroup extends React.Component<any, any> {
     render() {
         var details: any = this.props.details;
         if (details.view) {
-            if (!this.props.inline) {
-                return details.view;
-            } else {
-                return <MultilineDetailedView details={details} />
-            }
+            return details.view;
         } else {
-            return <MultilineInputView details={details} />
+            return <InputField {...details} />
         }
     }
 }
@@ -251,7 +231,7 @@ class FormFieldGroups extends React.Component<any, any> {
         return props.size.map((size: number, index:number) => { 
             var details:any = FormFieldGroups.mergeDefaults(props, index);
             return <Col md={size} sm={12} xs={12} key={'form_field_groups_' + index} >
-                <FormFieldGroup details={props.fields[index]} inline={!!props.inline}/>
+                <FormFieldGroup details={props.fields[index]} />
             </Col>
         })
     }
