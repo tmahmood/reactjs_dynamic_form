@@ -205,7 +205,7 @@ class MultilineDetailedView extends React.Component<any, any> {
 class MultilineInputView extends React.Component<any, any> {
     render() {
         return <Row key={"key_ffg_d" + this.props.details.field}>
-            <InputField {...this.props.details.view} />
+            <InputField {...this.props.details} />
         </Row>
     }
 }
