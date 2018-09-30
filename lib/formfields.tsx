@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Card, CardBody, CardHeader, FormFeedback, FormText} from 'reactstrap';
-import {Col, Row, FormGroup, Label, Input, Table} from 'reactstrap';
+import {FormFeedback, FormText} from 'reactstrap';
+import {Col, Row, Label, Input} from 'reactstrap';
 import Select from 'react-select';
 import {Creatable as Creatable} from 'react-select';
 import {Async as Async} from 'react-select';
@@ -16,7 +16,6 @@ export default class FormFields extends React.Component<any, any> {
     }
 
     render() {
-        const props = this.props;
         const fields = this.props.fields;
         return fields.layout.map((field:any, index:number) => {
             if(field.fields === 'br') {
@@ -214,7 +213,7 @@ class ColumnFormDisplay extends React.Component<any, any> {
     render() {
         let props = this.props;
         return <React.Fragment>
-            <span className="formLabel"><Label for={props.field}>{props.caption}</Label></span>
+            <Label for={props.field}>{props.caption}</Label>
             {props.field}
             {props.feedback || <FormFeedback>{props.feedback}</FormFeedback>}
             {props.hintText || <FormText>{props.hintText}</FormText>}
@@ -246,7 +245,7 @@ class FormFieldGroups extends React.Component<any, any> {
     static mergeDefaults(props:any, index:number) {
         var details:any = props.fields[index];
         for(var k in props.defaults) {
-            if (!(k in details)) {
+            if (!(details.hasOwnProperty(k))) {
                 details[k] = props.defaults[k];
             }
         }
