@@ -183,14 +183,46 @@ export class InputField extends React.Component<any, any> {
                                    {...inputProps}
                                    {...valid} />
         }
+        if(props.inline) {
+            return <InlineFormDisplay {...props} field={field} />
+        } else {
+            return <ColumnFormDisplay {...props} field={field} />
+        }
+    }
+}
+
+
+class InlineFormDisplay extends React.Component<any, any> {
+
+    render() {
+        let props = this.props;
         return <React.Fragment>
             <Label for={props.field}>{props.caption}</Label>
-                {field}
+            {props.field}
+            {props.feedback ||
+            <FormFeedback>{props.feedback}</FormFeedback>}
+            {props.hintText ||
+            <FormText>{props.hintText}</FormText>}
+        </React.Fragment>
+    }
+}
+
+class ColumnFormDisplay extends React.Component<any, any> {
+
+    render() {
+        let props = this.props;
+        return <React.Fragment>
+            <Col md={4} className="formLabel" xs={12}>
+                <Label for={props.field}>{props.caption}</Label>
+            </Col>
+            <Col md={8} xs={12}>
+                {props.field}
                 {props.feedback ||
-                    <FormFeedback>{props.feedback}</FormFeedback>}
+                <FormFeedback>{props.feedback}</FormFeedback>}
                 {props.hintText ||
-                    <FormText>{props.hintText}</FormText>}
-       </React.Fragment>
+                <FormText>{props.hintText}</FormText>}
+            </Col>
+        </React.Fragment>
     }
 }
 
