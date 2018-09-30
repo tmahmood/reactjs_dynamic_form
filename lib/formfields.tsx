@@ -196,7 +196,7 @@ class InlineFormDisplay extends React.Component<any, any> {
     render() {
         let props = this.props;
         return <Row>
-            <Col md={4} className="formLabel" xs={12}>
+            <Col md={4} xs={12}>
                 <Label for={props.field}>{props.caption}</Label>
             </Col>
             <Col md={8} xs={12}>
@@ -213,7 +213,9 @@ class ColumnFormDisplay extends React.Component<any, any> {
     render() {
         let props = this.props;
         return <React.Fragment>
-            <Label for={props.field}>{props.caption}</Label>
+            <span className="formLabel">
+                <Label for={props.field}>{props.caption}</Label>
+            </span>
             {props.field}
             {props.feedback || <FormFeedback>{props.feedback}</FormFeedback>}
             {props.hintText || <FormText>{props.hintText}</FormText>}
