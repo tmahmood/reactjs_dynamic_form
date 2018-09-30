@@ -1,6 +1,6 @@
 {
   "name": "reactjs_dynamic_form",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "A dynamic form generator for reactjs ",
   "main": "./dist/formfields.js",
   "types": "./dist/formfields.d.ts",

@@ -196,7 +196,7 @@ class InlineFormDisplay extends React.Component<any, any> {
 
     render() {
         let props = this.props;
-        return <React.Fragment>
+        return <Row>
             <Col md={4} className="formLabel" xs={12}>
                 <Label for={props.field}>{props.caption}</Label>
             </Col>
@@ -205,7 +205,7 @@ class InlineFormDisplay extends React.Component<any, any> {
                 {props.feedback || <FormFeedback>{props.feedback}</FormFeedback>}
                 {props.hintText || <FormText>{props.hintText}</FormText>}
             </Col>
-        </React.Fragment>
+        </Row>
     }
 }
 
@@ -259,7 +259,7 @@ class FormFieldGroups extends React.Component<any, any> {
         return props.size.map((size: number, index:number) => { 
             var details:any = FormFieldGroups.mergeDefaults(props, index);
             return <Col md={size} sm={12} xs={12} key={'form_field_groups_' + index} >
-                <FormFieldGroup details={props.fields[index]} />
+                <FormFieldGroup details={details} />
             </Col>
         })
     }
