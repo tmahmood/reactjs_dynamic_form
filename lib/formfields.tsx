@@ -36,7 +36,7 @@ export default class FormFields extends React.Component<any, any> {
 export class InputField extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        var headers = {};
+        let headers = {};
         if('headers' in props) {
             headers = Object.assign({}, headers, props.headers);
         }
@@ -83,9 +83,9 @@ export class InputField extends React.Component<any, any> {
         if(typeof this.props.changeCondition === 'function' && !this.props.changeCondition()) {
             return;
         }
-        var src:string = '';
-        var listingFunc:any = null;
-        var parent = this;
+        let src: string = '';
+        let listingFunc: any = null;
+        const parent = this;
         // is our source a function or url? if we require to change the url a little
         // we can make it a function that will return the string after making the
         // change. ie;
@@ -123,19 +123,19 @@ export class InputField extends React.Component<any, any> {
           .then(response => {
               return response.json();
           })
-          .then(json => { 
-              var itemsJson:any = listingFunc(json);
-              var items:any = itemsJson.map((item: any) => {
+          .then(json => {
+              let itemsJson: any = listingFunc(json);
+              let items: any = itemsJson.map((item: any) => {
                   // we need to convert the data to match with react-select format
                   // so we use optionFunc to convert our data to match
-                  // react-select compatible object 
-                  // ie: 
+                  // react-select compatible object
+                  // ie:
                   // { role: "SOME_ROLE", id: 323 }
                   // to
                   // { label: "SOME_ROLE", value: 323 }
-                  var opt = nextProps.optionFunc(item);
-                  if(opt.value == parent.props.value) {
-                      parent.setState({ value: opt });
+                  let opt = nextProps.optionFunc(item);
+                  if (opt.value == parent.props.value) {
+                      parent.setState({value: opt});
                   }
                   return opt;
               });
@@ -144,43 +144,44 @@ export class InputField extends React.Component<any, any> {
     }
 
     render() {
+        let field:any;
         const props = {...this.props};
         if(props.visible != undefined) {
             if(props.visible == false) {
                 return '';
             }
         }
-        var parent: any = this;
-        var inputProps = {
-            name: props.field, 
+        let parent: any = this;
+        let inputProps = {
+            name: props.field,
             required: !!props.required,
             id: props.field,
             key: 'input_key_' + props.field,
             value: this.state.value
         };
-        var selectProps = {
-                    clearable: props.clearable || false,
-                    onChange: parent.onSelectChange,
-                    options: props.source ? this.state.items : props.options,
-                    loadOptions: props.loadOptions
-            };
+        let selectProps = {
+            clearable: props.clearable || false,
+            onChange: parent.onSelectChange,
+            options: props.source ? this.state.items : props.options,
+            loadOptions: props.loadOptions
+        };
         if(props.fieldType == 'select') {
-            var field:any = <Select {...inputProps} {...selectProps} />;
+            field = <Select {...inputProps} {...selectProps} />;
         } else if(props.fieldType == 'async') {
-            var field:any = <Async {...inputProps} {...selectProps} />;
+            field = <Async {...inputProps} {...selectProps} />;
         } else if(props.fieldType == 'asyncCreate') {
-            var field:any = <AsyncCreatable {...inputProps} {...selectProps} />
+            field = <AsyncCreatable {...inputProps} {...selectProps} />;
         } else if(this.props.fieldType == 'create') {
-            var field:any = <Creatable {...inputProps} {...selectProps} />
+            field = <Creatable {...inputProps} {...selectProps} />;
         } else {
-            var valid:any = {};
+            let valid: any = {};
             if (props.valid != undefined) {
                 valid.valid = props.valid;
             }
-            var field:any = <Input type={props.fieldType}
-                                   onChange={props.update}
-                                   {...inputProps}
-                                   {...valid} />
+            field = <Input type={props.fieldType}
+                           onChange={props.update}
+                           {...inputProps}
+                           {...valid} />;
         }
         if(props.inline) {
             return <InlineFormDisplay {...props} field={field} />
@@ -229,7 +230,7 @@ class FormFieldGroup extends React.Component<any, any> {
     }
 
     render() {
-        var details: any = this.props.details;
+        const details: any = this.props.details;
         if (details.view) {
             return details.view;
         } else {
@@ -245,8 +246,8 @@ class FormFieldGroups extends React.Component<any, any> {
     }
 
     static mergeDefaults(props:any, index:number) {
-        var details:any = props.fields[index];
-        for(var k in props.defaults) {
+        const details: any = props.fields[index];
+        for(let k in props.defaults) {
             if (!(details.hasOwnProperty(k))) {
                 details[k] = props.defaults[k];
             }
@@ -257,8 +258,8 @@ class FormFieldGroups extends React.Component<any, any> {
     render() {
         // sizes and fields
         const props = this.props;
-        return props.size.map((size: number, index:number) => { 
-            var details:any = FormFieldGroups.mergeDefaults(props, index);
+        return props.size.map((size: number, index:number) => {
+            const details: any = FormFieldGroups.mergeDefaults(props, index);
             return <Col md={size} sm={12} xs={12} key={'form_field_groups_' + index} >
                 <FormFieldGroup details={details} />
             </Col>

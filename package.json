@@ -1,6 +1,6 @@
 {
   "name": "reactjs_dynamic_form",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "A dynamic form generator for reactjs ",
   "main": "./dist/formfields.js",
   "types": "./dist/formfields.d.ts",
@@ -40,24 +40,24 @@
   },
   "homepage": "https://github.com/tmahmood/reactjs_dynamic_form#readme",
   "dependencies": {
-    "@types/react-select": "^1.2.6",
-    "react-select": "^2.0.0-beta.6"
+    "react-select": "^2.3.0"
   },
   "devDependencies": {
     "@types/jest": "^22.2.3",
-    "@types/react": "^16.3.12",
-    "@types/react-dom": "^16.0.5",
-    "@types/reactstrap": "^5.0.22",
-    "babel-jest": "^22.4.3",
+    "@types/react": "^16.8.1",
+    "@types/react-dom": "^16.0.11",
+    "@types/react-select": "^2.0.11",
+    "@types/reactstrap": "^7.1.1",
+    "babel-jest": "^22.4.4",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
-    "jest": "^22.4.3",
-    "react": "^16.3.2",
-    "react-dom": "^16.3.2",
-    "react-test-renderer": "^16.3.2",
-    "reactstrap": "^5.0.0",
+    "jest": "^22.4.4",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-test-renderer": "^16.7.0",
+    "reactstrap": "^5.0.0-beta.3",
     "ts-jest": "^22.4.6",
-    "ts-loader": "^4.3.0",
-    "typescript": "^2.8.3"
+    "ts-loader": "^4.5.0",
+    "typescript": "^3.3.1"
   }
 }
